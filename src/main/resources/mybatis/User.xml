@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+         <!DOCTYPE mapper
+         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liz.domain.User">
+
+    <sql id="cols">id,name,email</sql>
+    <sql id="ucols">id=#{id},name=#{name},email=#{email}</sql>
+
+    <!--查询所有记录-->
+    <select id="listAll" resultType="aliasesUser">
+        select <include refid="cols"/> from users
+    </select>
+
+    <!--条件查询-->
+    <select id="find" parameterType="aliasesUser" resultType="aliasesUser">
+        select * from users where name like "%"#{name}"%"
+    </select>
+
+    <!--查询一个用户-->
+    <select id="get" parameterType="java.lang.String" resultType="aliasesUser">
+        select <include refid="cols"/> from users where id=#{id}
+    </select>
+
+    <!--新增-->
+    <insert id="create" parameterType="aliasesUser">
+        insert into users (id,name,email) values(#{id},#{name},#{email})
+    </insert>
+
+    <!--修改-->
+    <update id="update" parameterType="aliasesUser">
+        update users set name=#{name},email=#{email} where id=#{id}
+    </update>
+
+    <!--删除-->
+    <delete id="delete" parameterType="aliasesUser">
+        delete from users where id=#{id}
+    </delete>
+</mapper>

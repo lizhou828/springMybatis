@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+           version="3.0">
+
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log4j.properties</param-value>
+    </context-param>
+
+    <!--ContextLoaderListener会读取这些XML文件并产生 WebApplicationContext对象，然后将这个对象放置在ServletContext的属性-->
+    <!--里，这样我们只要可以得到Servlet就可 以得到WebApplicationContext对象，并利用这个对象访问spring 容器管理的bean。-->
+    <!--初始成功之后显示如下-->
+    <!--信息: Initializing Spring root WebApplicationContext-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <description>加载/WEB-INF/classes/目录下的所有XML作为Spring MVC的配置文件</description>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/classes/spring/*.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <!--1)load-on-startup元素标记容器是否在启动的时候就加载这个servlet(实例化并调用其init()方法)。-->
+        <!--2)它的值必须是一个整数，表示servlet应该被载入的顺序-->
+        <!--2)当值为0或者大于0时，表示容器在应用启动时就加载并初始化这个servlet；-->
+        <!--3)当值小于0或者没有指定时，则表示容器在该servlet被选择时才会去加载。-->
+        <!--4)正数的值越小，该servlet的优先级越高，应用启动时就越先加载。-->
+        <!--5)当值相同时，容器就会自己选择顺序来加载。-->
+        <!--所以，<load-on-startup>x</load-on-startup>，中x的取值1，2，3，4，5代表的是优先级，而非启动延迟时间。-->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+    <!--默认起始页-->
+    <!--<welcome-file-list>-->
+        <!--<welcome-file>index.jsp</welcome-file>-->
+        <!-- JSP文件放在WebRoot下面:优点，程序结构清晰，便于编码和维护；缺点，要加过滤器。-->
+        <!--JSP文件放在WEB-INF下面：优点，不用过滤器；缺点，打乱了程序结构，编码和维护麻烦点。-->
+    <!--</welcome-file-list>-->
+
+    <!--自定义错误页面-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+    <!--<error-page>-->
+        <!--<exception-type>java.lang.NullPointerException</exception-type>-->
+        <!--<location>/error/500.jsp</location>-->
+    <!--</error-page>-->
+
+
+</web-app>
