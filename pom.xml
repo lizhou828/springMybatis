@@ -204,7 +204,32 @@
             <artifactId>jmagick</artifactId>
             <version>6.2.4</version>
         </dependency>
+
+
+
+
+        <!--Support fo Dubbo-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.1</version>
+        </dependency>
+
+
     </dependencies>
+
+
+
 
 
     <!--<pluginRepositories>-->
@@ -253,19 +278,19 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <!--指定网站根目录 ( 通常maven项目的网站根目录为“webapp”)-->
-                            <directory>web</directory>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-war-plugin</artifactId>-->
+                <!--<version>2.1.1</version>-->
+                <!--<configuration>-->
+                    <!--<webResources>-->
+                        <!--<resource>-->
+                            <!--&lt;!&ndash;指定网站根目录 ( 通常maven项目的网站根目录为“webapp”)&ndash;&gt;-->
+                            <!--<directory>web</directory>-->
+                        <!--</resource>-->
+                    <!--</webResources>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

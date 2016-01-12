@@ -4,36 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liz.domain.User">
 
-    <sql id="cols">id,name,email</sql>
-    <sql id="ucols">id=#{id},name=#{name},email=#{email}</sql>
+    <sql id="cols">user_id,user_name,email</sql>
+    <sql id="ucols">user_id=#{userId},user_name=#{userName},email=#{email}</sql>
 
     <!--查询所有记录-->
     <select id="listAll" resultType="aliasesUser">
-        select <include refid="cols"/> from users
+        select <include refid="cols"/> from t_user
     </select>
 
     <!--条件查询-->
     <select id="find" parameterType="aliasesUser" resultType="aliasesUser">
-        select * from users where name like "%"#{name}"%"
+        select * from t_user where user_name like "%"#{userName}"%"
     </select>
 
     <!--查询一个用户-->
     <select id="get" parameterType="java.lang.String" resultType="aliasesUser">
-        select <include refid="cols"/> from users where id=#{id}
+        select <include refid="cols"/> from t_user where user_id=#{userId}
     </select>
 
     <!--新增-->
     <insert id="create" parameterType="aliasesUser">
-        insert into users (id,name,email) values(#{id},#{name},#{email})
+        insert into t_user (user_id,user_name,email) values(#{userId},#{userName},#{email})
     </insert>
 
     <!--修改-->
     <update id="update" parameterType="aliasesUser">
-        update users set name=#{name},email=#{email} where id=#{id}
+        update t_user set user_name=#{userName},email=#{email} where user_id=#{userId}
     </update>
 
     <!--删除-->
     <delete id="delete" parameterType="aliasesUser">
-        delete from users where id=#{id}
+        delete from t_user where user_id=#{userId}
     </delete>
 </mapper>
